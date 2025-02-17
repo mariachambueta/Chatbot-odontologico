@@ -20,10 +20,9 @@ export const routes: Routes = [
   {
     path: 'apps',
     loadComponent: () => import('./apps/apps.page').then( m => m.AppsPage)
-  },  {
+  },
+  {
     path: 'fivebot',
     loadComponent: () => import('./fivebot/fivebot.page').then( m => m.FIVEbotPage)
   },
-
-  
 ];

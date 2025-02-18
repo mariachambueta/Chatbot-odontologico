@@ -16,6 +16,7 @@ export class CardsPage implements OnInit {
 
   ngOnInit() {
   }
+  //Tarjetas de presentación de cada uno
   tarjetas = [
     {
       titulo: "1Jardinería Inteligente",

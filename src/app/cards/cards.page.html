@@ -6,25 +6,42 @@
 
 <ion-content class="ion-padding" padding fullscreen>
   <h2>Bienvenido a Sección 1</h2>
-  <ion-button expand="full" href="/fivebot">Volver a Home</ion-button>
-
-  <ion-grid>  
+  
+  <!--<ion-grid fixed>  
     <ion-row> 
-      <ion-col size="12" >
+      <ion-col size="12" *ngFor="let c of [1,1,1 ];">
         <ion-card>
           <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
           <ion-card-header>
             <ion-card-title>Card Title</ion-card-title>
             <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
           </ion-card-header>
-        
           <ion-card-content>
             Here's a small text description for the card content. Nothing more, nothing less.
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
+  </ion-grid>-->
+  
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let tarjeta of tarjetas">
+        <ion-card class="custom-card">
+          <img [src]="tarjeta.imagen" alt="Imagen de {{ tarjeta.titulo }}" />
+          <ion-card-header>
+            <ion-card-title>{{ tarjeta.titulo }}</ion-card-title>
+            <ion-card-subtitle>{{ tarjeta.subtitulo }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            {{ tarjeta.descripcion }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </ion-grid>
+
+  <ion-button expand="full" href="/fivebot">Volver a Home</ion-button>
 
 </ion-content>
 

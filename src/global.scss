@@ -35,3 +35,8 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+.texto-dinamico {
+    color: var(--ion-color-step-850, black); /* Negro en modo claro, blanco en modo oscuro */
+  }
+  

@@ -30,4 +30,8 @@ export const routes: Routes = [
     path: 'ndgs',
     loadComponent: () => import('./components/ndgs/ndgs.component').then( m => m.NdgsComponent)
   },
+  {
+    path: 'cards',
+    loadComponent: () => import('./cards/cards.page').then( m => m.CardsPage)
+  },
 ];

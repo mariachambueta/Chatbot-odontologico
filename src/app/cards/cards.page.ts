@@ -18,34 +18,34 @@ export class CardsPage implements OnInit {
   }
   tarjetas = [
     {
-      titulo: "1Jardinería Inteligente",
-      subtitulo: "Monitorea tus plantas",
+      titulo: "Nicolas Garcia",
+      subtitulo: "Estudiante Ingenieria Multimedia",
       descripcion: "Usa sensores para saber cuándo regar.",
       imagen: "https://ionicframework.com/docs/img/demos/card-media.png"
     },
     {
-      titulo: "2Cultivo Urbano",
-      subtitulo: "Siembra en casa",
+      titulo: "Valentina Vargas",
+      subtitulo: "Estudiante Ingenieria Multimedia",
       descripcion: "Aprende técnicas de hidroponía y macetas.",
-      imagen: "https://ionicframework.com/docs/img/demos/card-media.png"
+      imagen: "https://static.netwrck.com/static/uploads/ai-Help-Bot-HX-Help-Bot.webp"
     },
     {
-      titulo: "3Plantas de interior",
-      subtitulo: "Cuidados esenciales",
+      titulo: "Maria Alejandra Chambueta",
+      subtitulo: "Estudiante Ingenieria Multimedia",
       descripcion: "Consejos para mantener tus plantas saludables.",
-      imagen: "https://ionicframework.com/docs/img/demos/card-media.png"
+      imagen: "https://static.netwrck.com/static/uploads/ai-Atza-Technology.webp"
     },
     {
-      titulo: "4Jardinería Inteligente",
-      subtitulo: "Monitorea tus plantas",
-      descripcion: "Usa sensores para saber cuándo regar.",
-      imagen: "https://ionicframework.com/docs/img/demos/card-media.png"
+      titulo: "Stefany Gelvez Quintana",
+      subtitulo: "Estudiante Ingenieria Multimedia",
+      descripcion: "Soy Tecnóloga en Electrónica y Comunicaciones, egresada de la Universidad Militar Nueva Granada, con disposición de aprender, aportar  lo mejor de mí, trabajar en equipo, adquirir nuevos conocimientos y habilidades. Soy una persona con características de liderazgo al progreso, proactiva, servicial y dedicada para cumplir con mis respectivos objetivos y metas, con capacidad para desarrollar proyectos en el sector de tecnología. Mi objetivo personal es dar mis primeros pasos en una empresa consolidada en el área de mis estudios académicos, a la cual me permita mostrar y desarrollar al máximo mis capacidades y con la cual crecer profesionalmente. Así mismo, para mi objetivo profesional tengo claro que el éxito laboral y el desarrollo profesional, requieren de compromiso, esfuerzo y lealtad, estoy determinada a asumir ese reto dando así mi mayor esfuerzo, cumpliendo a cabalidad las tareas que se me asignen.",
+      imagen: "https://static.netwrck.com/static/uploads/ai-MD-T2-Artificial-Intelligence.webp"
     },
     {
-      titulo: "5Cultivo Urbano",
-      subtitulo: "Siembra en casa",
+      titulo: "Jeimmy cortes",
+      subtitulo: "Estudiante Ingenieria Multimedia",
       descripcion: "Aprende técnicas de hidroponía y macetas.",
-      imagen: "https://ionicframework.com/docs/img/demos/card-media.png"
+      imagen: "https://static.netwrck.com/static/uploads/ai-xerkarsa-Emotional.webp"
     }
   ];
 }

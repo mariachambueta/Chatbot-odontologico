@@ -35,5 +35,16 @@ ion-title {
     color: #000; //fafafa
   }
 
+  .color{
+    ion-card {
+      --background: #7f5d95;
+      --color: #4c40f0;
+    }
+    
+    ion-card-title {
+      --color: #0b0d0d;
+    }
+  }
+
  
   

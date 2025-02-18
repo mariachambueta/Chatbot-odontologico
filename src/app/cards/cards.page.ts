@@ -45,7 +45,7 @@ export class CardsPage implements OnInit {
     {
       titulo: "Jeimmy cortes",
       subtitulo: "Estudiante Ingenieria Multimedia",
-      descripcion: "Aprende técnicas de hidroponía y macetas.",
+      descripcion: "Soy estudiante de Ingenieria en Multimedia de la Universidad Militar Nueva Granada. Me apasiona el diseño y lo relacionado a la tecnologia, me considero una persona que puede trabajar en equipo, con ganas de aprender continuamente y con grandes objetivos que cumplir.",
       imagen: "https://static.netwrck.com/static/uploads/ai-xerkarsa-Emotional.webp"
     }
   ];

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem,  IonLabel,  IonList, IonThumbnail, IonButton } from '@ionic/angular/standalone';
 
+import { NdgsComponent } from '../components/ndgs/ndgs.component';
+/**/
 @Component({
   selector: 'app-fivebot',
   templateUrl: './fivebot.page.html',

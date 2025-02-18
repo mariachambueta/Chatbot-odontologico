@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -23,6 +24,10 @@ export const routes: Routes = [
   },
   {
     path: 'fivebot',
-    loadComponent: () => import('./fivebot/fivebot.page').then( m => m.FIVEbotPage)
+    loadComponent: () => import('./fivebot/fivebot.page').then( m => m.FIVEbotPage) //Pagina inicial
+  },
+  {
+    path: 'ndgs',
+    loadComponent: () => import('./components/ndgs/ndgs.component').then( m => m.NdgsComponent)
   },
 ];

@@ -4,6 +4,13 @@
     border-radius: 10px;
   }
   
+  ion-title {
+    --color: #fff;
+    background-color: #1A1036;    
+    height: 60px;
+    font-family: "Century Gothic Bold", sans-serif;
+  }
+
   ion-grid {
     padding: 10px;
   }
@@ -13,5 +20,18 @@
   text-align: center;
   font-size: 2.7em;  
   font-family: "Century Gothic Bold", sans-serif;
+}
+
+.btn1{    
+  width: 300px;
+  height: 50px;    
+  text-align: center;
+  font-size: 30px;
+  display: inline-block;
+  display: block;    
+  margin-right: auto;
+  margin-left: auto;
+  font-family: "Century Gothic Bold", sans-serif;
+  background-color: #14D1E4; 
 }
 

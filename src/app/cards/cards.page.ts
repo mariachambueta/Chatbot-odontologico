@@ -22,7 +22,7 @@ export class CardsPage implements OnInit {
       titulo: "Nicolas Garcia",
       subtitulo: "Estudiante Ingenieria Multimedia",
       descripcion: "Usa sensores para saber cuándo regar.",
-      imagen: "https://ionicframework.com/docs/img/demos/card-media.png"
+      imagen: "/assets/NickP.png"
     },
     {
       titulo: "Valentina Vargas",

@@ -21,13 +21,13 @@ export class CardsPage implements OnInit {
     {
       titulo: "Nicolas Garcia",
       subtitulo: "Estudiante Ingenieria Multimedia",
-      descripcion: "Usa sensores para saber cuándo regar.",
+      descripcion: "Soy estudiante de pregrado de la Universidad Militar Nueva Granada en Colombia, matriculado en el programa de Ingeniería Multimedia, donde he cursado tres años. Mi formación académica incluye un título de tecnólogo en Diseño e Integración de Automatización Mecatrónica del SENA (Servicio Nacional de Aprendizaje). Me apasiona transformar historias y objetos en entornos virtuales a través de la programación, explorar la esencia de la vida a través de las computadoras y cerrar la brecha entre el mundo virtual y el real para combinar lo mejor de ambos.",
       imagen: "/assets/NickP.png"
     },
     {
       titulo: "Valentina Vargas",
       subtitulo: "Estudiante Ingenieria Multimedia",
-      descripcion: "Aprende técnicas de hidroponía y macetas.",
+      descripcion: "Soy estudiante de pregrado en la Universidad Militar Nueva Granada. Mi formación académica incluye un título de tecnólogo en producción multimedia del Servicio Nacional de Aprendizaje (SENA) y actualmente estoy cursando la carrera de ingeniería multimedia, programa en el que participo desde hace tres años. Tengo un gran interés en el campo de la multimedia porque nos permite contar historias, evocar emociones y transformar la realidad a través de imágenes, sonidos y animaciones.",
       imagen: "https://static.netwrck.com/static/uploads/ai-Help-Bot-HX-Help-Bot.webp"
     },
     {

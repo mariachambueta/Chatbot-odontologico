@@ -1,7 +1,7 @@
 import telebot
 from telebot import types
 
-# 📌 Token del bot (REEMPLÁZALO POR TU TOKEN SEGURO)
+# 📌 Token del bot 
 TOKEN = "8003877407:AAGai3qjxuEOrVaS5_-rPcq2f7rkSEa-Q-k"
 bot = telebot.TeleBot(TOKEN)
 

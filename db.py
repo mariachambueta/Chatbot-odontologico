@@ -1,3 +1,4 @@
+# db.py
 import sqlite3
 
 DB_PATH = "chatbot.db"
@@ -33,9 +34,11 @@ def obtener_citas(chat_id):
     conn.close()
     return citas
 
-def eliminar_cita(chat_id, cita_id):
+def eliminar_cita(cita_id, chat_id):
     conn = conectar_db()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM citas WHERE chat_id = ? AND id = ?", (chat_id, cita_id))
+    cursor.execute("DELETE FROM citas WHERE id = ? AND chat_id = ?", (cita_id, chat_id))
     conn.commit()
+    eliminado = cursor.rowcount > 0  # Verifica si se eliminó efectivamente
     conn.close()
+    return eliminado

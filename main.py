@@ -208,6 +208,7 @@ def manejar_mensaje(message):
         return
 
     # Estado: esperando selección de cita para cancelar
+    # Estado: esperando selección de cita para cancelar
     if estado.get("estado") == "esperando_cancelacion":
         if texto == TEXTOS["volver_menu_es"] or texto == TEXTOS["volver_menu_en"]:
             usuarios_estado.pop(chat_id, None)
@@ -216,10 +217,11 @@ def manejar_mensaje(message):
             else:
                 bot.send_message(chat_id, TEXTOS["menu_en"], reply_markup=crear_menu_opciones(idioma))
             return
+
         # Esperamos formato: "id - fecha_hora"
         try:
-            id_cita = int(texto.split(" - ")[0])
-            eliminado = eliminar_cita(id_cita, chat_id)
+            cita_id = int(texto.split(" - ")[0].strip())
+            eliminado = eliminar_cita(cita_id, chat_id)  # Ahora en el orden correcto
             if eliminado:
                 if idioma == "es":
                     bot.send_message(chat_id, TEXTOS["cita_cancelada_es"], reply_markup=crear_menu_opciones(idioma))
@@ -227,9 +229,9 @@ def manejar_mensaje(message):
                     bot.send_message(chat_id, TEXTOS["cita_cancelada_en"], reply_markup=crear_menu_opciones(idioma))
             else:
                 if idioma == "es":
-                    bot.send_message(chat_id, "❌ No se pudo cancelar esa cita. Intenta de nuevo.")
+                    bot.send_message(chat_id, f"❌ No se pudo cancelar la cita con ID {cita_id}. Verifica que sea tuya o selecciona una del menú.")
                 else:
-                    bot.send_message(chat_id, "❌ Could not cancel that appointment. Try again.")
+                    bot.send_message(chat_id, f"❌ Could not cancel the appointment with ID {cita_id}. Make sure it's yours and selected from the list.")
             usuarios_estado.pop(chat_id, None)
         except Exception:
             if idioma == "es":
@@ -237,6 +239,7 @@ def manejar_mensaje(message):
             else:
                 bot.send_message(chat_id, "❌ Invalid format. Please select the appointment from the menu.")
         return
+
 
     # Menú principal según texto
     if texto in ["🗓 Agendar cita", "🗓 Book appointment"]:

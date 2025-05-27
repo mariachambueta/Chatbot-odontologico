@@ -1,6 +1,9 @@
 import telebot
 from telebot import types
 from db import crear_tabla_citas, guardar_cita, obtener_citas, eliminar_cita
+import threading
+import time
+from datetime import datetime, timedelta
 
 # Token de tu bot aquí
 API_TOKEN = "8003877407:AAGai3qjxuEOrVaS5_-rPcq2f7rkSEa-Q-k"
@@ -16,7 +19,7 @@ usuarios_estado = {}
 def detectar_idioma(texto):
     texto = texto.lower()
     palabras_esp = ["hola", "agendar", "cita", "cancelar", "menu", "ayuda"]
-    palabras_eng = ["hi", "schedule", "appointment", "cancel", "help", "menu"]
+    palabras_eng = ["hi", "hello","schedule", "appointment", "cancel", "help", "menu"]
 
     if any(p in texto for p in palabras_esp):
         return "es"
@@ -133,11 +136,35 @@ def crear_menu_citas(citas, idioma):
 def manejar_mensaje(message):
     chat_id = message.chat.id
     texto = message.text.strip()
-    idioma = detectar_idioma(texto)
+    if chat_id not in usuarios_estado:
+        idioma_detectado = detectar_idioma(texto)
+        usuarios_estado[chat_id] = {
+            "estado": None,
+            "idioma": idioma_detectado,
+            "ultima_interaccion": datetime.now(),
+            "inactivo": False}
+    else:
+        idioma_detectado = usuarios_estado[chat_id]["idioma"]
 
+    idioma = idioma_detectado
+    
     # Estado del usuario
     estado = usuarios_estado.get(chat_id, {"estado": None})
 
+    # Si el usuario estaba inactivo y vuelve a escribir, reiniciamos estado
+    if usuarios_estado[chat_id].get("inactivo", False):
+        nuevo_idioma = detectar_idioma(texto)
+        usuarios_estado[chat_id] = {
+            "estado": None,
+            "idioma": nuevo_idioma,
+            "ultima_interaccion": datetime.now(),
+            "inactivo": False
+        }
+        if nuevo_idioma == "es":
+            bot.send_message(chat_id, "👋 Has vuelto. Aquí está el menú:", reply_markup=crear_menu_opciones("es"))
+        else:
+            bot.send_message(chat_id, "👋 You're back. Here's the menu:", reply_markup=crear_menu_opciones("en"))
+        return
     # Si usuario quiere volver al menú principal en cualquier paso
     if texto in [TEXTOS["volver_menu_es"], TEXTOS["volver_menu_en"]]:
         usuarios_estado.pop(chat_id, None)
@@ -213,7 +240,7 @@ def manejar_mensaje(message):
 
     # Menú principal según texto
     if texto in ["🗓 Agendar cita", "🗓 Book appointment"]:
-        usuarios_estado[chat_id] = {"estado": "esperando_dia"}
+        usuarios_estado[chat_id]["estado"] = "esperando_dia"
         if idioma == "es":
             bot.send_message(chat_id, TEXTOS["seleccion_dia_es"], reply_markup=crear_menu_fechas(idioma))
         else:
@@ -227,8 +254,10 @@ def manejar_mensaje(message):
                 bot.send_message(chat_id, TEXTOS["sin_citas_es"], reply_markup=crear_menu_opciones(idioma))
             else:
                 bot.send_message(chat_id, TEXTOS["sin_citas_en"], reply_markup=crear_menu_opciones(idioma))
-            return
-        usuarios_estado[chat_id] = {"estado": "esperando_cancelacion"}
+            return 
+
+        usuarios_estado[chat_id]["estado"] = "esperando_cancelacion"
+
         if idioma == "es":
             bot.send_message(chat_id, TEXTOS["cancelar_cita_es"], reply_markup=crear_menu_citas(citas, idioma))
         else:
@@ -291,8 +320,29 @@ def manejar_mensaje(message):
         bot.send_message(chat_id, TEXTOS["no_entendido_es"], reply_markup=crear_menu_opciones(idioma))
     else:
         bot.send_message(chat_id, TEXTOS["no_entendido_en"], reply_markup=crear_menu_opciones(idioma))
+    
+    usuarios_estado[chat_id]["ultima_interaccion"] = datetime.now()
+
+def verificar_inactividad():
+    while True:
+        ahora = datetime.now()
+        for chat_id, estado in list(usuarios_estado.items()):
+            ultima = estado.get("ultima_interaccion", ahora)
+            if not estado.get("inactivo", False) and ahora - ultima > timedelta(minutes=1):  # Cambia a 15 para producción
+                idioma = estado.get("idioma", "es")
+                if idioma == "es":
+                    bot.send_message(chat_id, "⏳ Tu sesión ha expirado por inactividad. Por favor vuelve a comenzar.", reply_markup=crear_menu_opciones("es"))
+                else:
+                    bot.send_message(chat_id, "⏳ Your session has expired due to inactivity. Please start again.", reply_markup=crear_menu_opciones("en"))
+                usuarios_estado[chat_id]["estado"] = None
+                usuarios_estado[chat_id]["inactivo"] = True  # Solo se envía una vez
+        time.sleep(60)
 
 
 if __name__ == "__main__":
-    print("Bot iniciado...")
+    print("Bot iniciado🤖...")    
+    thread = threading.Thread(target=verificar_inactividad)
+    thread.daemon = True  # Permite que se cierre con el script
+    thread.start()
+
     bot.polling()

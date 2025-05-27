@@ -78,6 +78,20 @@ TEXTOS = {
 
     "salir_es": "🚪 Gracias por usar el bot. ¡Hasta luego!",
     "salir_en": "🚪 Thanks for using the bot. Goodbye!",
+
+    "respuestas_generales_es": {
+        "hola": "¡Hola! 😊 ¿En qué puedo ayudarte?",
+        "gracias": "¡De nada! Siempre aquí para ayudarte. 🦷",
+        "cómo estás": "¡Estoy listo para ayudarte con cualquier duda odontológica! 🦷",
+        "adiós": "¡Hasta luego! No olvides cuidar tu sonrisa. 😁"
+    },
+    "respuestas_generales_en": {
+        "hi": "Hi there! 😊 How can I help you?",
+        "hello": "Hi there! 😊 How can I help you?",
+        "thanks": "You're welcome! Always here to assist you. 🦷",
+        "how are you": "I'm ready to assist you with any dental questions! 🦷",
+        "bye": "Goodbye! Don't forget to care for your smile. 😁"
+    }
 }
 
 # Fechas y horas ejemplo (puedes modificar)
@@ -148,6 +162,14 @@ def manejar_mensaje(message):
 
     idioma = idioma_detectado
     
+    # 🚀 Respuestas generales (saludos, gracias, etc.)
+    texto_lower = texto.lower()
+    respuestas_rapidas = TEXTOS["respuestas_generales_es"] if idioma == "es" else TEXTOS["respuestas_generales_en"]
+
+    if texto_lower in respuestas_rapidas:
+        bot.send_message(chat_id, respuestas_rapidas[texto_lower], reply_markup=crear_menu_opciones(idioma))
+        return
+
     # Estado del usuario
     estado = usuarios_estado.get(chat_id, {"estado": None})
 
@@ -305,18 +327,80 @@ def manejar_mensaje(message):
 
     if texto in ["❓ Ayuda", "❓ Help"]:
         if idioma == "es":
-            bot.send_message(chat_id, TEXTOS["ayuda_es"], reply_markup=crear_menu_opciones(idioma))
+            respuesta = TEXTOS["ayuda_es"] + "\n\nSelecciona una opción:"
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+            markup.add("🦷 Consejos", "❓ Preguntas frecuentes", "🔙 Volver al menú")
         else:
-            bot.send_message(chat_id, TEXTOS["ayuda_en"], reply_markup=crear_menu_opciones(idioma))
+            respuesta = TEXTOS["ayuda_en"] + "\n\nPlease choose an option:"
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+            markup.add("🦷 Advice", "❓ FAQ", "🔙 Back to menu")
+
+        bot.send_message(chat_id, respuesta, reply_markup=markup)
         return
 
-    if texto in ["🚪 Salir", "🚪 Exit"]:
+    # ❓ Preguntas frecuentes o FAQ
+    texto_lower = texto.lower()
+    if texto_lower in ["preguntas frecuentes", "❓ preguntas frecuentes", "faq", "❓ faq"]:
+        if idioma == "es":
+            respuesta = (
+                "❓ Preguntas Frecuentes:\n"
+                "1️⃣ ¿Cada cuánto debo ir al dentista?\n"
+                "   - Cada 6 meses.\n"
+                "2️⃣ ¿Qué hago si me sangran las encías?\n"
+                "   - Usa cepillo suave y consulta al odontólogo.\n"
+                "3️⃣ ¿Es recomendable el blanqueamiento dental?\n"
+                "   - Sí, pero siempre bajo supervisión profesional."
+            )
+        else:
+            respuesta = (
+                "❓ Frequently Asked Questions:\n"
+                "1️⃣ How often should I see the dentist?\n"
+                "   - Every 6 months.\n"
+                "2️⃣ What if my gums bleed?\n"
+                "   - Use a soft brush and consult your dentist.\n"
+                "3️⃣ Is teeth whitening recommended?\n"
+                "   - Yes, but always under professional supervision."
+            )
+        bot.send_message(chat_id, respuesta, reply_markup=crear_menu_opciones(idioma))
+        return
+
+    # 🦷 Consejos o Advice
+    if texto_lower in ["consejos", "🦷 consejos", "advice", "🦷 advice"]:
+        if idioma == "es":
+            respuesta = (
+                "🦷 Consejos para el dolor de muela:\n"
+                "✅ Enjuágate con agua tibia y sal.\n"
+                "✅ Toma un analgésico si es necesario.\n"
+                "✅ Agenda cita para revisión.\n\n"
+                "🪥 Consejos de higiene bucal:\n"
+                "✅ Cepíllate mínimo 2 veces al día con pasta con flúor.\n"
+                "✅ Usa hilo dental diariamente.\n"
+                "✅ Reduce azúcar y bebidas ácidas.\n"
+                "✅ Visita al dentista cada 6 meses."
+            )
+        else:
+            respuesta = (
+                "🦷 Toothache Advice:\n"
+                "✅ Rinse with warm salt water.\n"
+                "✅ Take a pain reliever if needed.\n"
+                "✅ Book a dental appointment.\n\n"
+                "🪥 Oral Hygiene Tips:\n"
+                "✅ Brush at least twice a day with fluoride toothpaste.\n"
+                "✅ Floss daily.\n"
+                "✅ Limit sugar and acidic drinks.\n"
+                "✅ Visit your dentist every 6 months."
+            )
+        bot.send_message(chat_id, respuesta, reply_markup=crear_menu_opciones(idioma))
+        return
+
+    if texto.lower() in ["🚪 salir", "salir", "🚪 exit", "exit"]:
         usuarios_estado.pop(chat_id, None)
         if idioma == "es":
             bot.send_message(chat_id, TEXTOS["salir_es"], reply_markup=types.ReplyKeyboardRemove())
         else:
             bot.send_message(chat_id, TEXTOS["salir_en"], reply_markup=types.ReplyKeyboardRemove())
         return
+
 
     # Si no reconoce comando
     if idioma == "es":

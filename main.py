@@ -326,6 +326,7 @@ def manejar_mensaje(message):
     
     usuarios_estado[chat_id]["ultima_interaccion"] = datetime.now()
 
+
 def verificar_inactividad():
     while True:
         ahora = datetime.now()

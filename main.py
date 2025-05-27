@@ -416,7 +416,7 @@ def verificar_inactividad():
         ahora = datetime.now()
         for chat_id, estado in list(usuarios_estado.items()):
             ultima = estado.get("ultima_interaccion", ahora)
-            if not estado.get("inactivo", False) and ahora - ultima > timedelta(minutes=1):  # Cambia a 15 para producción
+            if not estado.get("inactivo", False) and ahora - ultima > timedelta(minutes=15):  # Cambia a 15 para producción
                 idioma = estado.get("idioma", "es")
                 if idioma == "es":
                     bot.send_message(chat_id, "⏳ Tu sesión ha expirado por inactividad. Por favor vuelve a comenzar.", reply_markup=crear_menu_opciones("es"))
